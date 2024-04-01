@@ -1,0 +1,56 @@
+mixin Calendar()
+  #c-calendar.c-calendar
+    .c-calendar-inner
+      .c-calendar-month
+        |1月
+      table.c-calendar-tbl
+        - day = 1
+        - row = 1
+        - for(let h=0; h<3; h++)
+          tr.c-calendar-tbl__row
+            - for(let i=0; i<11; i++)
+              - if(i===10 && day === 11)
+                td.c-calendar-tbl__cell.empty
+                  span.c-calendar-tbl__daily
+                    |!{day}
+              - else if(i===10 && day === 21)
+                td.c-calendar-tbl__cell.empty
+                  span.c-calendar-tbl__daily
+                    |!{day}
+              - else
+                td.c-calendar-tbl__cell
+                  span.c-calendar-tbl__daily
+                    |!{day}
+              - day++
+            - row++
+            - if(row === 2)
+              - day = 11
+            - if(row === 3)
+              - day = 21
+    .c-calendar-inner
+      .c-calendar-month
+        |2月
+      table.c-calendar-tbl
+        - day = 1
+        - row = 1
+        - for(let h=0; h<3; h++)
+          tr.c-calendar-tbl__row
+            - for(let i=0; i<11; i++)
+              - if(i===10 && day === 11)
+                td.c-calendar-tbl__cell.empty
+                  span.c-calendar-tbl__daily
+                    |!{day}
+              - else if(i===10 && day === 21)
+                td.c-calendar-tbl__cell.empty
+                  span.c-calendar-tbl__daily
+                    |!{day}
+              - else
+                td.c-calendar-tbl__cell
+                  span.c-calendar-tbl__daily
+                    |!{day}
+              - day++
+            - row++
+            - if(row === 2)
+              - day = 11
+            - if(row === 3)
+              - day = 21

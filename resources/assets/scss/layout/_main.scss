@@ -1,0 +1,28 @@
+/**
+ * main.scss
+ */
+
+@media (--large) {
+
+}
+//end @media (--large)
+
+@media (--mobile) {
+
+}
+//end @media (--mobile)
+
+:root {
+  --main_text: #707070;
+  --bg_main: #F1EEE6;
+  --calendar_border: #C1C0C0;
+  --calendar_border_adjoin: #707070;
+  --calendar_cel_empty: #F3F3F3;
+}
+
+main {
+  padding-top: 50px;
+  padding-bottom: 24px;
+  background-color: var(--bg_main);
+  color: var(--main_text);
+}

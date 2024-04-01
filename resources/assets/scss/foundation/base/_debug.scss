@@ -1,0 +1,40 @@
+/**
+ * BrowserSync
+ */
+#__bs_notify__ {
+  display:none !important;
+  font-size: 8px !important;
+  opacity:.25;
+  max-height:50px;
+}
+
+.__debug_mihon__{
+  position:absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: 0 auto 0 auto;
+  z-index: 100000;
+  pointer-events: none;
+  cursor: none;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  animation:__debug_mihon__ 1s infinite;
+}
+.__debug_mihon__{
+  padding-top:0px;
+  margin-top: 0px;
+}
+@-webkit-keyframes __debug_mihon__ {
+    0% { opacity:0; }
+   60% { opacity:.5; }
+  100% { opacity:.5; }
+}
+/*
+@example
+ <div class="mihon">
+  <img src="./images/sample1.png" alt="" class="type_pc">
+  <img src="./images/sample2.png" alt="" class="type_sp">
+</div>
+*/

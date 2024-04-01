@@ -1,0 +1,23 @@
+mixin meta(_meta_)
+  title #{_meta_.title || meta.title}
+  link(rel="canonical", href=`${_meta_.canonical || ''}`)
+  meta(name="description", content=`${_meta_.description || meta.description}`)
+  if _meta_.keyword !== undefined
+    meta(name="keyword", content=`${_meta_.keyword}`)
+  else if 0 < meta.keyword.length
+    meta(name="keyword", content=`${meta.keyword}`)
+  if `${_meta_.isOgp || meta.isOgp || ''}` === 'show'
+    meta(property="og:type", content=`${_meta_.ogpType || meta.ogpType}`)
+    meta(property="og:site_name", content=`${_meta_.ogpSiteName || meta.ogpSiteName}`)
+    meta(property="og:url", content=`${_meta_.ogpUrl || meta.ogpUrl || ''}`)
+    meta(property="og:title", content=`${_meta_.ogpTitle || _meta_.title || meta.ogpTitle || meta.title}`)
+    meta(property="og:image", content=`${_meta_.ogpImage || meta.ogpImage || ''}`)
+    meta(property="og:description", content=`${_meta_.ogpDescription || _meta_.description|| meta.ogpDescription || meta.description}`)
+    if meta.fbAppId
+      meta(name="fb:app_id", content=`${meta.fbAppId}`)
+  if `${_meta_.isTwitterCard || meta.isTwitterCard || ''}` === 'show'
+    meta(name="twitter:card", content=`${_meta_.twitterCard || meta.twitterCard}`)
+    meta(name="twitter:title", content=`${_meta_.twitterTitle || _meta_.title || meta.twitterTitle  || meta.title}`)
+    meta(name="twitter:url", content=`${_meta_.twitterUrl || _meta_.ogpUrl || meta.twitterUrl || meta.ogpUrl}`)
+    meta(name="twitter:description", content=`${_meta_.twitterDesciption || _meta_.description || meta.twitterDesciption || meta.description}`)
+    meta(name="twitter:image", content=`${_meta_.twitterImage || _meta_.ogpImage || meta.twitterImage|| meta.ogpImage}`)

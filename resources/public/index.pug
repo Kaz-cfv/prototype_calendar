@@ -1,0 +1,21 @@
+include /mixin/calendar
+
+doctype html
+html(lang="ja")
+  head
+    include /elements/head-property
+    include /elements/head-assets
+    include /mixin/meta
+    +meta({
+        title:"Calendar demo"
+    })
+  body
+    include /elements/body-preppend
+    include /elements/header
+
+    main
+      .p-calendar
+        +Calendar()
+
+    include /elements/footer
+    include /elements/body-append

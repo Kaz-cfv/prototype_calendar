@@ -1,0 +1,22 @@
+/**
+ * Custom media queries
+ * @example
+ * @media (--mobile) {
+ *    styles for mobile viewport
+ * }
+ */
+
+/**
+ * for mobile viewoport
+ */
+@custom-media --mini (max-width: 320px);
+@custom-media --phone (max-width: 519px);
+@custom-media --tablet (min-width: 520px) and (max-width: 959px);
+@custom-media --mobile (max-width: 959px);
+@custom-media --large (min-width: 960px);
+/**
+ * for tablet and Pc. large viewport
+ */
+@custom-media --large (min-width: 960px);
+
+@custom-media --desktop(min-width: 1280px);

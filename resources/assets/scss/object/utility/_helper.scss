@@ -1,0 +1,37 @@
+
+/**
+ * clearfix micro
+ */
+.clearfix:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+/**
+ * text ellipsis., text...
+ */
+.text-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.u-hide{
+  display:none;
+}
+
+.u-click {
+  cursor:pointer;
+}
+
+@media (--large) {
+  .for-mobile {
+    display: none;
+  }
+}
+@media (--mobile) {
+  .for-large {
+    display: none;
+  }
+}

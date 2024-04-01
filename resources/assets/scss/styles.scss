@@ -1,0 +1,34 @@
+@charset "utf-8";
+
+// Foundation
+@import "foundation/setting/_font",
+"foundation/setting/_mediaquery",
+"foundation/setting/_timing",
+"foundation/setting/_function",
+"foundation/setting/_mixin",
+"foundation/setting/_regulation",
+"foundation/setting/_animation";
+
+// vendor
+@import "normalize.css"; /* == @import "../node_modules/normalize.css/normalize.css"; */
+// @import "swiper/swiper-bundle.min.css";
+
+@import "foundation/vendor/**";
+
+@import "foundation/base/_vue";
+@import "foundation/base/_structure";
+
+// Layout
+@import "layout/**";
+
+//pages
+@import "./object/project/**";
+
+// Object/Component
+ @import "object/component/**";
+
+// Object/Component
+@import "object/utility/**";
+
+// debug
+@import "foundation/base/_debug";

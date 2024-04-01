@@ -1,0 +1,15 @@
+/**
+* Variables
+*/
+
+/** extend */
+@media (--large) {
+  //リンク時はhover opacity: .5
+  .ex-link {
+    opacity: 1;
+    transition: opacity 0.2s linear;
+    &:hover {
+      opacity: .5;
+    }
+  }
+}

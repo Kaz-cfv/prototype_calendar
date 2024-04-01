@@ -1,0 +1,64 @@
+{
+  "name": "crefla-projects",
+  "version": "3.0.0",
+  "description": "CREBAR FLAVOR. is project for develop",
+  "main": "index.js",
+  "author": "CREBAR FLAVOR.",
+  "private": true,
+  "scripts": {
+    "start": "yarn install && gulp watch",
+    "build": "yarn install && gulp build",
+    "build:pug": "yarn install && gulp build:pug",
+    "build:css": "yarn install && gulp build:sass",
+    "build:image": "yarn install && gulp build:image",
+    "build:static": "gulp build:static",
+    "build:js": "gulp build:js",
+    "build:wp": "gulp build:wp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10",
+    "jquery": "3.6.0",
+    "moment": "^2.30.1",
+    "normalize.css": "8.0.1",
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "autoprefixer": "^10.4.0",
+    "babel-preset-minify": "^0.5.0",
+    "browser-sync": "^2.27.7",
+    "css-mqpacker": "^7.0.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-cached": "^1.1.1",
+    "gulp-imagemin": "7.1.0",
+    "gulp-include": "^2.4.1",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^9.0.1",
+    "gulp-pug": "^5.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.1.3",
+    "gulp-sass": "^5.0.0",
+    "gulp-sass-glob": "^1.1.0",
+    "node-sass": "^7.0.0",
+    "postcss": "^8.4.5",
+    "postcss-custom-media": "^8.0.0",
+    "postcss-gap-properties": "^3.0.1",
+    "postcss-import": "^14.0.2"
+  },
+  "resolutions": {
+    "chokidar": "^3.5.3",
+    "svgo": "^2.8.0"
+  },
+  "browserslist": [
+    "last 2 versions, not ie > 0",
+    "ios >= 12"
+  ],
+  "volta": {
+    "node": "16.13.2",
+    "yarn": "1.22.17"
+  }
+}
