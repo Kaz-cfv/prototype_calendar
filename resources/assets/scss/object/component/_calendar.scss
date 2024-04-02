@@ -2,7 +2,7 @@
   width: 824px;
   margin-right: auto;
   margin-left: auto;
-  padding: 70px 16px 24px;
+  padding: 24px 16px;
   border-radius: 1rem;
   background-color: #FFF;
 
@@ -16,6 +16,18 @@
 
     & + & {
       border-top: solid 2px var(--calendar_border_adjoin);
+    }
+  }
+
+  &-select {
+    margin-bottom: 16px;
+    &__list {
+      width: 92px;
+      height: 30px;
+      padding: 0 15px;
+      border: solid 1px var(--calendar_border);
+      border-radius: .5rem;
+      font-size: 1.4rem;
     }
   }
 
@@ -53,10 +65,8 @@
 
     &__daily {
       display: block;
-      font-size: 1rem;
+      font-size: .8rem;
       text-align: center;
     }
-
   }
-
 }
