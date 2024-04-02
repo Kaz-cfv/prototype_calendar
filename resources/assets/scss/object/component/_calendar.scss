@@ -57,15 +57,52 @@
       &:first-child {
         border-left: none;
       }
+      &.atDay,
+      &.targetDay {
+        background-color: var(--calendar_cel_apply);
+      }
+      &.startDay {
+        position: relative;
+        background-color: #FFF;
+        .triangle {
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 2;
+          width: calc(65.11px / 2);
+          height: 100%;
+          background-color: var(--calendar_cel_apply);
+          clip-path: polygon(0 50%, 100% 0, 100% 100%);
+          cursor: pointer;
+        }
+      }
+      &.endDay {
+        position: relative;
+        background-color: #FFF;
+        .triangle {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 2;
+          width: calc(65.11px / 2);
+          height: 100%;
+          background-color: var(--calendar_cel_apply);
+          clip-path: polygon(0 0, 100% 50%, 0 100%);
+          cursor: pointer;
+        }
+      }
       &.empty {
         color: var(--calendar_cel_empty);
         background-color: var(--calendar_cel_empty);
+        .triangle {
+          display: none;
+        }
       }
     }
 
     &__daily {
       display: block;
-      font-size: .8rem;
+      font-size: 1rem;
       text-align: center;
     }
   }

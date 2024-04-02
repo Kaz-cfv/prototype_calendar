@@ -10,10 +10,29 @@ class Calender {
   init(e) {
     console.log('calendar');
     const _e = e;
-    this.rendarCalendar(_e);
+    const data = {
+      schedules: [
+        {
+          startDay: '2024/1/12',
+          atDay: '2024/1/14',
+          endDay: '2024/2/5'
+        },
+        {
+          startDay: '2024/2/12',
+          atDay: '2024/2/15',
+          endDay: '2024/2/18'
+        },
+        {
+          startDay: '2024/4/28',
+          atDay: '2024/5/6',
+          endDay: '2024/5/13'
+        }
+      ]
+    }
+    this.rendarCalendar(_e, data);
   }
 
-  rendarCalendar(cl) {
+  rendarCalendar(cl, d) {
     const now = dayjs(new Date());
     let nowYear = now.format('YYYY');
     // let nowYear = 2011;
@@ -22,6 +41,7 @@ class Calender {
     option.text = nowYear;
     selectYear.appendChild(option);
 
+    let renderPoint = false;
     let day = 1;
     let rows = 1;
     let month = 1;
@@ -57,6 +77,38 @@ class Calender {
           td.classList.add('c-calendar-tbl__cell');
           let clDay = document.createElement('span');
           clDay.classList.add('c-calendar-tbl__daily');
+
+          let date = new Date(nowYear, month-1, day);
+          date = date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate();
+          // セルに日付データを持たせる
+          td.setAttribute('data-date', date);
+          clDay.innerHTML = day;
+
+          let ds = td.getAttribute('data-date');
+          // console.log(ds);
+          // JSONデータと比較
+          for(let l=0; l<d.schedules.length; l++) {
+            if(ds === d.schedules[l].startDay) {
+              td.classList.add('startDay');
+              let tri = document.createElement('span');
+              tri.classList.add('triangle');
+              td.appendChild(tri);
+              renderPoint = true;
+            }
+            else if(ds === d.schedules[l].atDay) {
+              td.classList.add('atDay');
+            }
+            else if(ds === d.schedules[l].endDay) {
+              renderPoint = false;
+              td.classList.add('endDay');
+              let tri = document.createElement('span');
+              tri.classList.add('triangle');
+              td.appendChild(tri);
+            }
+            else if(renderPoint === true && !(ds === d.schedules[l].startDay) && !(ds === d.schedules[l].endDay)) {
+              td.classList.add('targetDay');
+            }
+          }
 
           // セルを空にする
           if(i === 10 && day === 11) {
@@ -96,11 +148,6 @@ class Calender {
             day--;
           }
 
-          let date = new Date(nowYear, month-1, day);
-          date = date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate();
-          // セルに日付データを持たせる
-          td.setAttribute('data-date', date);
-          clDay.innerHTML = day;
           day++;
           td.appendChild(clDay);
           row.appendChild(td);
