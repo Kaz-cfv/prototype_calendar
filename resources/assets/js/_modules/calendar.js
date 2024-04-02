@@ -1,15 +1,34 @@
 class Calender {
   constructor() {
-    this.el = document.getElementById('c-calendar');
+    this.el = document.getElementById('c-calendar-router');
     if(!this.el) {
       return;
     }
-    this.init(this.el);
+
+    // 現在の年でカレンダーを描画
+    this.y = dayjs(new Date());
+    this.init(this.el, this.y);
+
+    // 年を変更した際の処理
+    this.sy = document.getElementById('year');
+    this.sy.onchange = event => {
+      this.v = dayjs(new Date(this.sy.value));
+      this.removeElm(this.el);
+      this.init(this.el, this.v);
+    }
   }
 
-  init(e) {
+  removeElm(_t) {
+    const t = _t;
+    while(t.firstChild) {
+      t.removeChild(t.firstChild);
+    }
+  }
+
+  init(_e, _y) {
     console.log('calendar');
-    const _e = e;
+    const e = _e;
+    const n = _y;
     const data = {
       schedules: [
         {
@@ -29,17 +48,14 @@ class Calender {
         }
       ]
     }
-    this.rendarCalendar(_e, data);
+    this.rendarCalendar(e, data, n);
   }
 
-  rendarCalendar(cl, d) {
-    const now = dayjs(new Date());
-    let nowYear = now.format('YYYY');
-    // let nowYear = 2011;
-    const selectYear = document.getElementById('year');
-    const option = document.createElement('option');
-    option.text = nowYear;
-    selectYear.appendChild(option);
+  rendarCalendar(cl, _d, _n) {
+    const setDate = _n;
+    let setYear = setDate.format('YYYY');
+    // 現在の年をデフォルトに設定
+    const selectYear = document.getElementById('year').querySelector('option[value="' + setYear + '"]').setAttribute("selected", "selected");
 
     let renderPoint = false;
     let day = 1;
@@ -47,7 +63,7 @@ class Calender {
     let month = 1;
     let leap = 0;
     // 閏年かどうかを判定
-    if( (nowYear % 400) === 0 || (nowYear % 4) === 0 && (nowYear % 100) !== 0 ) {
+    if( (setYear % 400) === 0 || (setYear % 4) === 0 && (setYear % 100) !== 0 ) {
       leap = 1;
     }
 
@@ -62,7 +78,7 @@ class Calender {
       // 翌年１月のみ表示
       if(month === 13) {
         month = 1;
-        nowYear++;
+        setYear++;
       }
       clMonth.innerHTML = month + "月";
       clContent.appendChild(clMonth);
@@ -78,7 +94,7 @@ class Calender {
           let clDay = document.createElement('span');
           clDay.classList.add('c-calendar-tbl__daily');
 
-          let date = new Date(nowYear, month-1, day);
+          let date = new Date(setYear, month-1, day);
           date = date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate();
           // セルに日付データを持たせる
           td.setAttribute('data-date', date);
@@ -87,25 +103,25 @@ class Calender {
           let ds = td.getAttribute('data-date');
           // console.log(ds);
           // JSONデータと比較
-          for(let l=0; l<d.schedules.length; l++) {
-            if(ds === d.schedules[l].startDay) {
+          for(let l=0; l<_d.schedules.length; l++) {
+            if(ds === _d.schedules[l].startDay) {
               td.classList.add('startDay');
               let tri = document.createElement('span');
               tri.classList.add('triangle');
               td.appendChild(tri);
               renderPoint = true;
             }
-            else if(ds === d.schedules[l].atDay) {
+            else if(ds === _d.schedules[l].atDay) {
               td.classList.add('atDay');
             }
-            else if(ds === d.schedules[l].endDay) {
+            else if(ds === _d.schedules[l].endDay) {
               renderPoint = false;
               td.classList.add('endDay');
               let tri = document.createElement('span');
               tri.classList.add('triangle');
               td.appendChild(tri);
             }
-            else if(renderPoint === true && !(ds === d.schedules[l].startDay) && !(ds === d.schedules[l].endDay)) {
+            else if(renderPoint === true && !(ds === _d.schedules[l].startDay) && !(ds === _d.schedules[l].endDay)) {
               td.classList.add('targetDay');
             }
           }
