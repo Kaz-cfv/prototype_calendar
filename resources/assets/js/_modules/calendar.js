@@ -1,7 +1,8 @@
 class Calender {
   constructor() {
     this.el = document.getElementById('c-calendar-router');
-    if(!this.el) {
+    this.rt = document.getElementById('c-calendar');
+    if(!this.rt) {
       return;
     }
 
@@ -11,10 +12,39 @@ class Calender {
 
     // 年を変更した際の処理
     this.sy = document.getElementById('year');
-    this.sy.onchange = event => {
+    this.sy.onchange = () => {
+      console.log(this.sy.value);
       this.v = dayjs(new Date(this.sy.value));
       this.removeElm(this.el);
       this.init(this.el, this.v);
+    }
+
+    // 前の年へ
+    this.btnPrev = document.querySelector('.js--prev');
+    if(this.btnPrev) {
+      this.btnPrev.addEventListener('click', () => {
+        let prev = parseInt(this.sy.value, 10);
+        document.getElementById('year').querySelector('option[value="' + prev + '"]').setAttribute("selected", "selected");
+        this.pr_v = document.getElementById('year').querySelector('option[selected="selected"]').value;
+        this.pr = dayjs(new Date(this.pr_v)).subtract(1, 'y');
+        this.scroll(this.rt);
+        this.removeElm(this.el);
+        this.init(this.el, this.pr);
+      });
+    }
+
+    // 次の年へ
+    this.btnNext = document.querySelector('.js--next');
+    if(this.btnNext) {
+      this.btnNext.addEventListener('click', () => {
+        let next = parseInt(this.sy.value, 10);
+        document.getElementById('year').querySelector('option[value="' + next + '"]').setAttribute("selected", "selected");
+        this.nt_v = document.getElementById('year').querySelector('option[selected="selected"]').value;
+        this.nt = dayjs(new Date(this.nt_v)).add(1, 'y');
+        this.scroll(this.rt);
+        this.removeElm(this.el);
+        this.init(this.el, this.nt);
+      });
     }
   }
 
@@ -30,6 +60,7 @@ class Calender {
     const e = _e;
     const n = _y;
     const data = {
+      id: 1,
       schedules: [
         {
           startDay: '2024/1/12',
@@ -54,8 +85,28 @@ class Calender {
   rendarCalendar(cl, _d, _n) {
     const setDate = _n;
     let setYear = setDate.format('YYYY');
-    // 現在の年をデフォルトに設定
-    const selectYear = document.getElementById('year').querySelector('option[value="' + setYear + '"]').setAttribute("selected", "selected");
+    // 年を設定
+    const sl = document.getElementById('year').querySelectorAll('option');
+    sl.forEach(_sl => {
+      _sl.removeAttribute('selected');
+    });
+    const selectYear = document.getElementById('year').querySelector('option[value="' + setYear + '"]');
+    selectYear.setAttribute("selected", "selected");
+
+    const START_YEAR = '2020';
+    const END_YEAR = '2029';
+    // if(setYear === START_YEAR) {
+    //   document.querySelector('.js--prev').classList.add('is--enable');
+    // }
+    // else {
+    //   document.querySelector('.js--prev').classList.remove('is--enable');
+    // }
+    if(setYear === END_YEAR) {
+      document.querySelector('.js--next').classList.add('is--enable');
+    }
+    else {
+      document.querySelector('.js--next').classList.remove('is--enable');
+    }
 
     let renderPoint = false;
     let day = 1;
@@ -99,6 +150,7 @@ class Calender {
           // セルに日付データを持たせる
           td.setAttribute('data-date', date);
           clDay.innerHTML = day;
+          // clDay.innerHTML = date;
 
           let ds = td.getAttribute('data-date');
           // console.log(ds);
@@ -178,5 +230,15 @@ class Calender {
       cl.appendChild(clContent);
       month++;
     }
+  }
+
+  scroll(_r) {
+    let r = _r.getBoundingClientRect().top;
+    const scrollY = window.pageYOffset;
+    r = r + scrollY;
+    window.scroll({
+      top: r,
+      behavior: 'smooth'
+    });
   }
 }
