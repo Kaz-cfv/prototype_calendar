@@ -55,46 +55,88 @@
       border-left: solid 1px var(--calendar_border);
       vertical-align: top;
       &:first-child {
-        border-left: none;
+        border-left: unset;
+      }
+      &.--sun {
+        background-color: var(--calendar_cel_sun);
+      }
+      &.--sat {
+        background-color: var(--calendar_cel_sat);
       }
       &.atDay,
       &.targetDay {
+        position: relative;
         background-color: var(--calendar_cel_apply);
+        &::before {
+          position: absolute;
+          top: 0;
+          left: -1px;
+          width: 1px;
+          height: 100%;
+          background-color: var(--calendar_cel_apply);
+          z-index: 3;
+          content: '';
+        }
       }
       &.startDay {
         position: relative;
         background-color: #FFF;
-        .triangle {
+        .handle {
           position: absolute;
           top: 0;
           right: 0;
           z-index: 2;
-          width: calc(65.11px / 2);
+          width: 100%;
           height: 100%;
+          border-radius: 2rem 0 0 2rem;
           background-color: var(--calendar_cel_apply);
-          clip-path: polygon(0 50%, 100% 0, 100% 100%);
           cursor: pointer;
+        }
+        &::before {
+          background-color: unset;
+        }
+        &.--sun {
+          background-color: var(--calendar_cel_sun);
+        }
+        &.--sat {
+          background-color: var(--calendar_cel_sat);
         }
       }
       &.endDay {
         position: relative;
         background-color: #FFF;
-        .triangle {
+        .handle {
           position: absolute;
           top: 0;
           left: 0;
           z-index: 2;
-          width: calc(65.11px / 2);
+          width: 100%;
+          height: 100%;
+          border-radius: 0 2rem 2rem 0;
+          background-color: var(--calendar_cel_apply);
+          cursor: pointer;
+        }
+        &::before {
+          position: absolute;
+          top: 0;
+          left: -1px;
+          width: 1px;
           height: 100%;
           background-color: var(--calendar_cel_apply);
-          clip-path: polygon(0 0, 100% 50%, 0 100%);
-          cursor: pointer;
+          z-index: 3;
+          content: '';
+        }
+        &.--sun {
+          background-color: var(--calendar_cel_sun);
+        }
+        &.--sat {
+          background-color: var(--calendar_cel_sat);
         }
       }
       &.empty {
         color: var(--calendar_cel_empty);
         background-color: var(--calendar_cel_empty);
-        .triangle {
+        .handle {
           display: none;
         }
       }
@@ -102,6 +144,8 @@
 
     &__daily {
       display: block;
+      position: relative;
+      z-index: 3;
       font-size: 1.4rem;
       text-align: center;
     }

@@ -5,4 +5,5 @@
 //=include vue/dist/vue.min.js
 //Vue.config.devtools = true;
 //=include dayjs/dayjs.min.js
+//=include dayjs/locale/ja.js
 //*=include axios/dist/axios.min.js

@@ -7,7 +7,7 @@ class Calender {
     }
 
     // 現在の年でカレンダーを描画
-    this.y = dayjs(new Date());
+    this.y = dayjs(new Date()).locale('ja');
     this.init(this.el, this.y);
 
     // 年を変更した際の処理
@@ -63,8 +63,8 @@ class Calender {
       id: 1,
       schedules: [
         {
-          startDay: '2024/1/12',
-          atDay: '2024/1/14',
+          startDay: '2024/1/13',
+          atDay: '2024/1/15',
           endDay: '2024/2/5'
         },
         {
@@ -113,6 +113,8 @@ class Calender {
     let rows = 1;
     let month = 1;
     let leap = 0;
+    const WEEK_ITEMS = ['日','月','火','水','木','金','土',];
+
     // 閏年かどうかを判定
     if( (setYear % 400) === 0 || (setYear % 4) === 0 && (setYear % 100) !== 0 ) {
       leap = 1;
@@ -146,10 +148,21 @@ class Calender {
           clDay.classList.add('c-calendar-tbl__daily');
 
           let date = new Date(setYear, month-1, day);
+          let week = date.getDay();
           date = date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate();
           // セルに日付データを持たせる
           td.setAttribute('data-date', date);
-          clDay.innerHTML = day;
+          let dayOfWeek = WEEK_ITEMS[week];
+          switch (week) {
+            case 0:
+              td.classList.add('--sun');
+              break;
+            case 6:
+              td.classList.add('--sat');
+            default:
+              break;
+          }
+          clDay.innerHTML = day + '/' + dayOfWeek;
           // clDay.innerHTML = date;
 
           let ds = td.getAttribute('data-date');
@@ -159,7 +172,7 @@ class Calender {
             if(ds === _d.schedules[l].startDay) {
               td.classList.add('startDay');
               let tri = document.createElement('span');
-              tri.classList.add('triangle');
+              tri.classList.add('handle');
               td.appendChild(tri);
               renderPoint = true;
             }
@@ -170,7 +183,7 @@ class Calender {
               renderPoint = false;
               td.classList.add('endDay');
               let tri = document.createElement('span');
-              tri.classList.add('triangle');
+              tri.classList.add('handle');
               td.appendChild(tri);
             }
             else if(renderPoint === true && !(ds === _d.schedules[l].startDay) && !(ds === _d.schedules[l].endDay)) {
