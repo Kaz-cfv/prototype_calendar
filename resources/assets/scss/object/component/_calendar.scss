@@ -47,9 +47,12 @@
     grid-row: 1/2;
     grid-column: 2/3;
     border-spacing: 0;
+    table-layout: fixed;
+    width: 100%;
 
     &__cell {
-      height: 86px;
+      width: calc(100% / 11);
+      height: 103px;
       padding: 4px;
       border-bottom: solid 1px var(--calendar_border);
       border-left: solid 1px var(--calendar_border);
@@ -57,26 +60,10 @@
       &:first-child {
         border-left: unset;
       }
-      &.--sun {
-        background-color: var(--calendar_cel_sun);
-      }
-      &.--sat {
-        background-color: var(--calendar_cel_sat);
-      }
       &.atDay,
       &.targetDay {
         position: relative;
         background-color: var(--calendar_cel_apply);
-        &::before {
-          position: absolute;
-          top: 0;
-          left: -1px;
-          width: 1px;
-          height: 100%;
-          background-color: var(--calendar_cel_apply);
-          z-index: 3;
-          content: '';
-        }
       }
       &.startDay {
         position: relative;
@@ -90,16 +77,7 @@
           height: 100%;
           border-radius: 2rem 0 0 2rem;
           background-color: var(--calendar_cel_apply);
-          cursor: pointer;
-        }
-        &::before {
-          background-color: unset;
-        }
-        &.--sun {
-          background-color: var(--calendar_cel_sun);
-        }
-        &.--sat {
-          background-color: var(--calendar_cel_sat);
+          cursor: grab;
         }
       }
       &.endDay {
@@ -114,23 +92,7 @@
           height: 100%;
           border-radius: 0 2rem 2rem 0;
           background-color: var(--calendar_cel_apply);
-          cursor: pointer;
-        }
-        &::before {
-          position: absolute;
-          top: 0;
-          left: -1px;
-          width: 1px;
-          height: 100%;
-          background-color: var(--calendar_cel_apply);
-          z-index: 3;
-          content: '';
-        }
-        &.--sun {
-          background-color: var(--calendar_cel_sun);
-        }
-        &.--sat {
-          background-color: var(--calendar_cel_sat);
+          cursor: grab;
         }
       }
       &.empty {
@@ -146,8 +108,41 @@
       display: block;
       position: relative;
       z-index: 3;
-      font-size: 1.4rem;
+      font-size: 1rem;
       text-align: center;
+      .--sat & {
+        color: var(--calendar_cel_satText);
+      }
+      .--sun & {
+        color: var(--calendar_cel_sunText);
+      }
+    }
+
+    .content {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      span {
+        display: block;
+      }
+      .type {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        margin: 16px auto 2px;
+        font-size: 1.4rem;
+        border: solid 1px var(--main_text);
+        border-radius: 100%;
+        background-color: #FFF;
+      }
+      .caption {
+        font-size: 1.3rem;
+      }
     }
   }
 

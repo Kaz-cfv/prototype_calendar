@@ -1,257 +1,285 @@
-class Calender {
+class Calendar {
   constructor() {
-    this.el = document.getElementById('c-calendar-router');
-    this.rt = document.getElementById('c-calendar');
-    if(!this.rt) {
-      return;
-    }
+    this.calendarElement = document.getElementById('c-calendar-router');
+    this.calendarRoot = document.getElementById('c-calendar');
+    if (!this.calendarRoot) return;
 
-    // 現在の年でカレンダーを描画
-    this.y = dayjs(new Date()).locale('ja');
-    this.init(this.el, this.y);
+    this.yearSelect = document.getElementById('year');
+    this.prevButton = document.querySelector('.js--prev');
+    this.nextButton = document.querySelector('.js--next');
 
-    // 年を変更した際の処理
-    this.sy = document.getElementById('year');
-    this.sy.onchange = () => {
-      console.log(this.sy.value);
-      this.v = dayjs(new Date(this.sy.value));
-      this.removeElm(this.el);
-      this.init(this.el, this.v);
-    }
+    this.currentYear = dayjs(new Date()).locale('ja');
+    this.init();
+    this.bindEvents();
+  }
 
-    // 前の年へ
-    this.btnPrev = document.querySelector('.js--prev');
-    if(this.btnPrev) {
-      this.btnPrev.addEventListener('click', () => {
-        let prev = parseInt(this.sy.value, 10);
-        document.getElementById('year').querySelector('option[value="' + prev + '"]').setAttribute("selected", "selected");
-        this.pr_v = document.getElementById('year').querySelector('option[selected="selected"]').value;
-        this.pr = dayjs(new Date(this.pr_v)).subtract(1, 'y');
-        this.scroll(this.rt);
-        this.removeElm(this.el);
-        this.init(this.el, this.pr);
+  init() {
+    this.renderCalendar(this.calendarElement, this.currentYear);
+  }
+
+  bindEvents() {
+    this.yearSelect.onchange = () => {
+      this.currentYear = dayjs(new Date(this.yearSelect.value));
+      this.updateCalendar();
+    };
+
+    if (this.prevButton) {
+      this.prevButton.addEventListener('click', () => {
+        this.currentYear = this.currentYear.subtract(1, 'y');
+        this.updateCalendar();
+        this.scrollToCalendar();
       });
     }
 
-    // 次の年へ
-    this.btnNext = document.querySelector('.js--next');
-    if(this.btnNext) {
-      this.btnNext.addEventListener('click', () => {
-        let next = parseInt(this.sy.value, 10);
-        document.getElementById('year').querySelector('option[value="' + next + '"]').setAttribute("selected", "selected");
-        this.nt_v = document.getElementById('year').querySelector('option[selected="selected"]').value;
-        this.nt = dayjs(new Date(this.nt_v)).add(1, 'y');
-        this.scroll(this.rt);
-        this.removeElm(this.el);
-        this.init(this.el, this.nt);
+    if (this.nextButton) {
+      this.nextButton.addEventListener('click', () => {
+        this.currentYear = this.currentYear.add(1, 'y');
+        this.updateCalendar();
+        this.scrollToCalendar();
       });
     }
   }
 
-  removeElm(_t) {
-    const t = _t;
-    while(t.firstChild) {
-      t.removeChild(t.firstChild);
+  updateCalendar() {
+    this.removeChildren(this.calendarElement);
+    this.renderCalendar(this.calendarElement, this.currentYear);
+  }
+
+  removeChildren(element) {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
     }
   }
 
-  init(_e, _y) {
-    console.log('calendar');
-    const e = _e;
-    const n = _y;
-    const data = {
+  renderCalendar(calendarElement, currentYear) {
+    const data = this.fetchCalendarData(); // APIからデータを取得する予定の箇所
+    this.setYearOptions(currentYear);
+
+    let renderPoint = false;
+    let day = 1;
+    let month = 1;
+    const WEEK_ITEMS = ['日', '月', '火', '水', '木', '金', '土'];
+
+    for (let k = 0; k < 12; k++) {
+      const calendarContent = this.createCalendarContent(currentYear, month);
+      const calendarBody = this.createCalendarBody(currentYear, month, day, data, WEEK_ITEMS, renderPoint);
+
+      calendarContent.appendChild(calendarBody);
+      calendarElement.appendChild(calendarContent);
+
+      day = 1;
+      month++;
+    }
+  }
+
+  fetchCalendarData() {
+    // APIからデータを取得する予定の箇所
+    // 現在は静的なデータを返す
+    return {
       id: 1,
       schedules: [
         {
           startDay: '2024/1/13',
           atDay: '2024/1/15',
-          endDay: '2024/2/5'
+          endDay: '2024/2/5',
+          type: '',
+          typeClass: '',
+          pattern: 'A',
+          bride: '',
+          bridegroom: '',
         },
         {
           startDay: '2024/2/12',
           atDay: '2024/2/15',
-          endDay: '2024/2/18'
+          endDay: '2024/2/18',
+          type: '',
+          typeClass: '',
+          pattern: 'B',
+          bride: '',
+          bridegroom: '',
         },
         {
           startDay: '2024/4/28',
           atDay: '2024/5/6',
-          endDay: '2024/5/13'
-        }
-      ]
-    }
-    this.rendarCalendar(e, data, n);
+          endDay: '2024/5/13',
+          type: '',
+          typeClass: '',
+          pattern: 'C',
+          bride: '',
+          bridegroom: '',
+        },
+      ],
+    };
   }
 
-  rendarCalendar(cl, _d, _n) {
-    const setDate = _n;
-    let setYear = setDate.format('YYYY');
-    // 年を設定
-    const sl = document.getElementById('year').querySelectorAll('option');
-    sl.forEach(_sl => {
-      _sl.removeAttribute('selected');
+  setYearOptions(currentYear) {
+    const yearOptions = this.yearSelect.querySelectorAll('option');
+    yearOptions.forEach((option) => {
+      option.removeAttribute('selected');
     });
-    const selectYear = document.getElementById('year').querySelector('option[value="' + setYear + '"]');
-    selectYear.setAttribute("selected", "selected");
 
-    const START_YEAR = '2020';
+    const selectedOption = this.yearSelect.querySelector(`option[value="${currentYear.format('YYYY')}"]`);
+    selectedOption.setAttribute('selected', 'selected');
+
     const END_YEAR = '2029';
-    // if(setYear === START_YEAR) {
-    //   document.querySelector('.js--prev').classList.add('is--enable');
-    // }
-    // else {
-    //   document.querySelector('.js--prev').classList.remove('is--enable');
-    // }
-    if(setYear === END_YEAR) {
-      document.querySelector('.js--next').classList.add('is--enable');
-    }
-    else {
-      document.querySelector('.js--next').classList.remove('is--enable');
-    }
-
-    let renderPoint = false;
-    let day = 1;
-    let rows = 1;
-    let month = 1;
-    let leap = 0;
-    const WEEK_ITEMS = ['日','月','火','水','木','金','土',];
-
-    // 閏年かどうかを判定
-    if( (setYear % 400) === 0 || (setYear % 4) === 0 && (setYear % 100) !== 0 ) {
-      leap = 1;
-    }
-
-    for(let k=0; k<13; k++) {
-      let clContent = document.createElement('div');
-      clContent.classList.add('c-calendar-inner');
-      let clBody = document.createElement('table');
-      clBody.classList.add('c-calendar-tbl');
-      let clMonth = document.createElement('div');
-      clMonth.classList.add('c-calendar-month');
-
-      // 翌年１月のみ表示
-      if(month === 13) {
-        month = 1;
-        setYear++;
-      }
-      clMonth.innerHTML = month + "月";
-      clContent.appendChild(clMonth);
-
-      // ひと月を描画
-      for(let h=0; h<3; h++) {
-        let row = document.createElement('tr');
-        row.classList.add('c-calendar-tbl__row');
-        // 10日間を描画
-        for(let i=0; i<11; i++) {
-          let td = document.createElement('td');
-          td.classList.add('c-calendar-tbl__cell');
-          let clDay = document.createElement('span');
-          clDay.classList.add('c-calendar-tbl__daily');
-
-          let date = new Date(setYear, month-1, day);
-          let week = date.getDay();
-          date = date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate();
-          // セルに日付データを持たせる
-          td.setAttribute('data-date', date);
-          let dayOfWeek = WEEK_ITEMS[week];
-          switch (week) {
-            case 0:
-              td.classList.add('--sun');
-              break;
-            case 6:
-              td.classList.add('--sat');
-            default:
-              break;
-          }
-          clDay.innerHTML = day + '/' + dayOfWeek;
-          // clDay.innerHTML = date;
-
-          let ds = td.getAttribute('data-date');
-          // console.log(ds);
-          // JSONデータと比較
-          for(let l=0; l<_d.schedules.length; l++) {
-            if(ds === _d.schedules[l].startDay) {
-              td.classList.add('startDay');
-              let tri = document.createElement('span');
-              tri.classList.add('handle');
-              td.appendChild(tri);
-              renderPoint = true;
-            }
-            else if(ds === _d.schedules[l].atDay) {
-              td.classList.add('atDay');
-            }
-            else if(ds === _d.schedules[l].endDay) {
-              renderPoint = false;
-              td.classList.add('endDay');
-              let tri = document.createElement('span');
-              tri.classList.add('handle');
-              td.appendChild(tri);
-            }
-            else if(renderPoint === true && !(ds === _d.schedules[l].startDay) && !(ds === _d.schedules[l].endDay)) {
-              td.classList.add('targetDay');
-            }
-          }
-
-          // セルを空にする
-          if(i === 10 && day === 11) {
-            td.classList.add('empty');
-            day--;
-          }
-          else if(month === 2 && day === 29 && leap === 0) {
-            td.classList.add('empty');
-            day--;
-          }
-          else if(i === 10 && day === 21) {
-            td.classList.add('empty');
-            day--;
-          }
-          else if(month === 2 && day === 30) {
-            td.classList.add('empty');
-            day--;
-          }
-          else if(month === 2 && day === 31) {
-            td.classList.add('empty');
-            day--;
-          }
-          else if(month === 4 && day === 31) {
-            td.classList.add('empty');
-            day--;
-          }
-          else if(month === 6 && day === 31) {
-            td.classList.add('empty');
-            day--;
-          }
-          else if(month === 9 && day === 31) {
-            td.classList.add('empty');
-            day--;
-          }
-          else if(month === 11 && day === 31) {
-            td.classList.add('empty');
-            day--;
-          }
-
-          day++;
-          td.appendChild(clDay);
-          row.appendChild(td);
-        }
-        rows++;
-        clBody.appendChild(row);
-      }
-      day = 1;
-      rows = 1;
-
-      clContent.appendChild(clBody);
-      cl.appendChild(clContent);
-      month++;
+    if (currentYear.format('YYYY') === END_YEAR) {
+      this.nextButton.classList.add('is--enable');
+    } else {
+      this.nextButton.classList.remove('is--enable');
     }
   }
 
-  scroll(_r) {
-    let r = _r.getBoundingClientRect().top;
-    const scrollY = window.pageYOffset;
-    r = r + scrollY;
-    window.scroll({
-      top: r,
-      behavior: 'smooth'
+  createCalendarContent(currentYear, month) {
+    const calendarContent = document.createElement('div');
+    calendarContent.classList.add('c-calendar-inner');
+
+    const calendarMonth = document.createElement('div');
+    calendarMonth.classList.add('c-calendar-month');
+    calendarMonth.textContent = `${month}月`;
+
+    calendarContent.appendChild(calendarMonth);
+    return calendarContent;
+  }
+
+  createCalendarBody(currentYear, month, day, data, WEEK_ITEMS, renderPoint) {
+    const calendarBody = document.createElement('table');
+    calendarBody.classList.add('c-calendar-tbl');
+
+    for (let h = 0; h < 3; h++) {
+      const row = document.createElement('tr');
+      row.classList.add('c-calendar-tbl__row');
+
+      for (let i = 0; i < 11; i++) {
+        if (h === 0 && i === 10) {
+          const emptyCell = document.createElement('td');
+          emptyCell.classList.add('c-calendar-tbl__cell', 'empty');
+          const emptyCellDate = document.createElement('span');
+          emptyCellDate.classList.add('c-calendar-tbl__daily');
+          emptyCell.appendChild(emptyCellDate);
+          row.appendChild(emptyCell);
+        } else if (h === 1 && i === 10) {
+          const emptyCell = document.createElement('td');
+          emptyCell.classList.add('c-calendar-tbl__cell', 'empty');
+          const emptyCellDate = document.createElement('span');
+          emptyCellDate.classList.add('c-calendar-tbl__daily');
+          emptyCell.appendChild(emptyCellDate);
+          row.appendChild(emptyCell);
+        } else {
+          const cell = this.createCalendarCell(currentYear, month, day, data, WEEK_ITEMS, renderPoint);
+          row.appendChild(cell);
+          day++;
+        }
+      }
+
+      calendarBody.appendChild(row);
+
+      if (h === 0) {
+        day = 11;
+      } else if (h === 1) {
+        day = 21;
+      }
+    }
+
+    return calendarBody;
+  }
+
+  createCalendarCell(currentYear, month, day, data, WEEK_ITEMS, renderPoint) {
+    const cell = document.createElement('td');
+    cell.classList.add('c-calendar-tbl__cell');
+
+    const cellDate = document.createElement('span');
+    cellDate.classList.add('c-calendar-tbl__daily');
+
+    const daysInMonth = this.getDaysInMonth(currentYear, month);
+    if (day > daysInMonth) {
+      cell.classList.add('empty');
+      cellDate.textContent = '';
+    } else {
+      const date = new Date(currentYear.format('YYYY'), month - 1, day);
+      const week = date.getDay();
+      const formattedDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+      cell.setAttribute('data-date', formattedDate);
+
+      const dayOfWeek = WEEK_ITEMS[week];
+      if (week === 0) {
+        cell.classList.add('--sun');
+      } else if (week === 6) {
+        cell.classList.add('--sat');
+      }
+
+      cellDate.textContent = `${day}/${dayOfWeek}`;
+
+      for (let l = 0; l < data.schedules.length; l++) {
+        const schedule = data.schedules[l];
+        const startDate = new Date(schedule.startDay);
+        const endDate = new Date(schedule.endDay);
+        const currentDate = new Date(formattedDate);
+
+        if (formattedDate === schedule.startDay) {
+          cell.classList.add('startDay');
+          const handle = document.createElement('span');
+          handle.classList.add('handle');
+          cell.appendChild(handle);
+          renderPoint = true;
+        } else if (formattedDate === schedule.atDay) {
+          cell.classList.add('atDay');
+          const caption = document.createElement('div');
+          caption.innerHTML = `
+            <span class="type">試</span>
+            <span class="date">2024/10/25</span>
+            <span class="pattern">${data.schedules[l].pattern}</span>
+            <span class="caption">山田</span>
+            <span class="caption">高嶺野</span>
+          `;
+          caption.classList.add('content');
+          cell.appendChild(caption);
+        } else if (formattedDate === schedule.endDay) {
+          cell.classList.add('endDay');
+          const handle = document.createElement('span');
+          handle.classList.add('handle');
+          cell.appendChild(handle);
+          renderPoint = false;
+        } else if (currentDate > startDate && currentDate < endDate && formattedDate !== schedule.atDay) {
+          cell.classList.add('targetDay');
+        }
+      }
+    }
+
+    cell.appendChild(cellDate);
+    return cell;
+  }
+
+  getDaysInMonth(currentYear, month) {
+    return new Date(currentYear.format('YYYY'), month, 0).getDate();
+  }
+
+  setCellAsEmpty(cell, currentYear, month, day) {
+    const isLeapYear = (year) => {
+      return (year % 400 === 0) || (year % 4 === 0 && year % 100 !== 0);
+    };
+
+    if (
+      (month === 2 && day === 29 && !isLeapYear(currentYear.year())) ||
+      (month === 2 && day === 30) ||
+      (month === 2 && day === 31) ||
+      (month === 4 && day === 31) ||
+      (month === 6 && day === 31) ||
+      (month === 9 && day === 31) ||
+      (month === 11 && day === 31) ||
+      (day === 11 && month !== 2) ||
+      (day === 21 && month !== 2)
+    ) {
+      cell.classList.add('empty');
+      cell.querySelector('.handle')?.remove();
+    }
+  }
+
+  scrollToCalendar() {
+    const calendarRect = this.calendarRoot.getBoundingClientRect();
+    const scrollPosition = window.pageYOffset + calendarRect.top;
+    window.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth',
     });
   }
 }
