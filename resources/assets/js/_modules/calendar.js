@@ -225,7 +225,9 @@ class Calendar {
           cell.classList.add('atDay');
           const caption = document.createElement('div');
           caption.innerHTML = `
-            <span class="type">試</span>
+            <div class="type_wrapper">
+              <span class="type">試</span><span class="type">試</span>
+            </div>
             <span class="date">2024/10/25</span>
             <span class="pattern">${data.schedules[l].pattern}</span>
             <span class="caption">山田</span>

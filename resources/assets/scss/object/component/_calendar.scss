@@ -128,13 +128,18 @@
       span {
         display: block;
       }
+      .type_wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 16px;
+        margin-bottom: 2px;
+      }
       .type {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 24px;
         height: 24px;
-        margin: 16px auto 2px;
         font-size: 1.4rem;
         border: solid 1px var(--main_text);
         border-radius: 100%;
