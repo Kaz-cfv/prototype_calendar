@@ -12,7 +12,7 @@ $(() => {
 //images resources loaded
 $(window).on('load', () => {
 
-  const calendar = new Calendar();
+  // const calendar = new Calendar();
 
   $(window).trigger('loading');
 });

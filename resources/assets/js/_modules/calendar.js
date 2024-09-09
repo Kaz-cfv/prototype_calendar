@@ -243,6 +243,9 @@ class Calendar {
           renderPoint = false;
         } else if (currentDate > startDate && currentDate < endDate && formattedDate !== schedule.atDay) {
           cell.classList.add('targetDay');
+          const targetcell = document.createElement('span');
+          targetcell.classList.add('target');
+          cell.appendChild(targetcell);
         }
       }
     }
