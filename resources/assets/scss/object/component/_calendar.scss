@@ -66,18 +66,8 @@
       &.targetDay {
       }
       &.startDay {
-        .handle {
-          top: 0;
-          right: 0;
-          border-radius: 2rem 0 0 2rem;
-        }
       }
       &.endDay {
-        .handle {
-          top: 0;
-          left: 0;
-          border-radius: 0 2rem 2rem 0;
-        }
       }
       &.empty {
         color: var(--calendar_cel_empty);
@@ -105,21 +95,37 @@
     .handle,
     .target,
     .content {
-      // &.--pink {
-      //   background-color: #F79B9B;
-      // }
-      // &.--red {
-      //   background-color: #F76767;
-      // }
-      // &.--orange {
-      //   background-color: #FF9345;
-      // }
+      &.--pink {
+        background-color: #F79B9B;
+      }
+      &.--red {
+        background-color: #F76767;
+      }
+      &.--orange {
+        background-color: #FF9345;
+      }
     }
     .--tier {
       .handle,
       .target,
       .content {
         height: 40px;
+      }
+      .handle,
+      .target,
+      .content {
+        &.--second {
+          top: calc(40px + (20px * 0));
+          height: 20px;
+        }
+        &.--third {
+          top: calc(40px + (20px * 1));
+          height: 20px;
+        }
+        &.--fourth {
+          top: calc(40px + (20px * 2));
+          height: 20px;
+        }
       }
     }
 
@@ -129,6 +135,18 @@
       height: 100%;
       background-color: var(--calendar_cel_apply);
       cursor: grab;
+    }
+    .start-handle {
+      top: 0;
+      right: 0;
+      border-radius: 2rem 0 0 2rem;
+      background-color: var(--calendar_cel_apply);
+    }
+    .end-handle {
+      top: 0;
+      left: 0;
+      border-radius: 0 2rem 2rem 0;
+      background-color: var(--calendar_cel_apply);
     }
 
     .target {
@@ -151,6 +169,11 @@
       height: 100%;
       background-color: var(--calendar_cel_apply);
       text-align: center;
+      &.--second .type_wrapper,
+      &.--third .type_wrapper,
+      &.--fourth .type_wrapper {
+        padding-top: 0;
+      }
       span {
         display: block;
       }

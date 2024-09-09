@@ -66,27 +66,28 @@ mixin Calendar()
             tr.c-calendar-tbl__row
               td.c-calendar-tbl__cell(data-date='2024/1/11')
                 span.c-calendar-tbl__daily 11/木
-              td.c-calendar-tbl__cell(data-date='2024/1/12')
+              td.c-calendar-tbl__cell.startDay(data-date='2024/1/12')
+                span.handle.start-handle
                 span.c-calendar-tbl__daily 12/金
-              td.c-calendar-tbl__cell.--sat.startDay(data-date='2024/1/13')
-                span.handle
+              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/1/13')
+                span.target
                 span.c-calendar-tbl__daily 13/土
               td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/1/14')
                 span.target
                 span.c-calendar-tbl__daily 14/日
-              td.c-calendar-tbl__cell.atDay(data-date='2024/1/15')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/15')
+                span.target
+                span.c-calendar-tbl__daily 15/月
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/16')
                 .content
                   .type_wrapper
                     span.type 試
                   span.date 2024/10/25
-                  span.pattern A
-                  span.caption 山田
-                  span.caption 高嶺野
-                span.c-calendar-tbl__daily 15/月
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/16')
-                span.target
+                  span.pattern B
+                  span.caption 最大四字
+                  span.caption 新婦
                 span.c-calendar-tbl__daily 16/火
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/17')
+              td.c-calendar-tbl__cell.atDay(data-date='2024/1/17')
                 span.target
                 span.c-calendar-tbl__daily 17/水
               td.c-calendar-tbl__cell.targetDay(data-date='2024/1/18')
@@ -95,55 +96,69 @@ mixin Calendar()
               td.c-calendar-tbl__cell.targetDay(data-date='2024/1/19')
                 span.target
                 span.c-calendar-tbl__daily 19/金
-              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/1/20')
-                span.target
+              td.c-calendar-tbl__cell.--sat.endDay(data-date='2024/1/20')
+                span.handle.end-handle
                 span.c-calendar-tbl__daily 20/土
               td.c-calendar-tbl__cell.empty
                 span.c-calendar-tbl__daily
             tr.c-calendar-tbl__row
-              td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/1/21')
-                span.target
+              td.c-calendar-tbl__cell.--sun.startDay.--tier(data-date='2024/1/21')
+                span.handle.start-handle
                 span.c-calendar-tbl__daily 21/日
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/22')
+              td.c-calendar-tbl__cell.targetDay.--tier(data-date='2024/1/22')
                 span.target
+                span.handle.start-handle.--pink.--second
+                span.handle.start-handle.--red.--third
                 span.c-calendar-tbl__daily 22/月
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/23')
-                span.target
+              td.c-calendar-tbl__cell.atDay.--tier(data-date='2024/1/23')
+                .content
+                  .type_wrapper
+                    soan.type 試
+                .content.--pink.--second
+                  .type_wrapper
+                    soan.type 試
+                .content.--red.--third
+                  .type_wrapper
+                    soan.type 試
                 span.c-calendar-tbl__daily 23/火
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/24')
-                span.target
+              td.c-calendar-tbl__cell.endDay.--tier(data-date='2024/1/24')
+                span.handle.end-handle
+                span.target.--pink.--second
+                span.target.--red.--third
+                span.handle.start-handle.--orange.--fourth
                 span.c-calendar-tbl__daily 24/水
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/25')
-                span.target
+              td.c-calendar-tbl__cell.endDay.--tier(data-date='2024/1/25')
+                span.handle.end-handle.--pink.--second
+                span.handle.end-handle.--red.--third
+                span.target.--orange.--fourth
                 span.c-calendar-tbl__daily 25/木
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/26')
-                span.target
+              td.c-calendar-tbl__cell.targetDay.--tier(data-date='2024/1/26')
+                span.target.--orange.--fourth
                 span.c-calendar-tbl__daily 26/金
-              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/1/27')
-                span.target
+              td.c-calendar-tbl__cell.--sat.atDay.--tier(data-date='2024/1/27')
+                .content.--orange.--fourth
+                  .type_wrapper
+                    soan.type 試
                 span.c-calendar-tbl__daily 27/土
-              td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/1/28')
-                span.target
+              td.c-calendar-tbl__cell.--sun.targetDay.--tier(data-date='2024/1/28')
+                span.target.--orange.--fourth
                 span.c-calendar-tbl__daily 28/日
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/29')
-                span.target
+              td.c-calendar-tbl__cell.endDay.--tier(data-date='2024/1/29')
+                span.handle.end-handle.--orange.--fourth
                 span.c-calendar-tbl__daily 29/月
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/30')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/1/30')
                 span.c-calendar-tbl__daily 30/火
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/1/31')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/1/31')
                 span.c-calendar-tbl__daily 31/水
       .c-calendar-inner
         .c-calendar-month 2月
         table.c-calendar-tbl
           tbody
             tr.c-calendar-tbl__row
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/1')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/2/1')
                 span.c-calendar-tbl__daily 1/木
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/2')
-                span.target
+              td.c-calendar-tbl__cell.startDay(data-date='2024/2/2')
+                span.handle.start-handle
                 span.c-calendar-tbl__daily 2/金
               td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/2/3')
                 span.target
@@ -151,76 +166,91 @@ mixin Calendar()
               td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/2/4')
                 span.target
                 span.c-calendar-tbl__daily 4/日
-              td.c-calendar-tbl__cell.endDay(data-date='2024/2/5')
-                span.handle
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/5')
+                span.target
                 span.c-calendar-tbl__daily 5/月
-              td.c-calendar-tbl__cell(data-date='2024/2/6')
+              td.c-calendar-tbl__cell.atDay(data-date='2024/2/6')
+                .content
+                  .type_wrapper
+                    soan.type 試
+                  span.date 2024/10/25
+                  span.pattern A
+                  span.caption 山田
+                  span.caption 高嶺野
                 span.c-calendar-tbl__daily 6/火
-              td.c-calendar-tbl__cell(data-date='2024/2/7')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/7')
+                span.target
                 span.c-calendar-tbl__daily 7/水
-              td.c-calendar-tbl__cell(data-date='2024/2/8')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/8')
+                span.target
                 span.c-calendar-tbl__daily 8/木
-              td.c-calendar-tbl__cell(data-date='2024/2/9')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/9')
+                span.target
                 span.c-calendar-tbl__daily 9/金
-              td.c-calendar-tbl__cell.--sat(data-date='2024/2/10')
+              td.c-calendar-tbl__cell.--sat.endDay(data-date='2024/2/10')
+                span.handle.end-handle
                 span.c-calendar-tbl__daily 10/土
               td.c-calendar-tbl__cell.empty
                 span.c-calendar-tbl__daily
             tr.c-calendar-tbl__row
               td.c-calendar-tbl__cell.--sun(data-date='2024/2/11')
                 span.c-calendar-tbl__daily 11/日
-              td.c-calendar-tbl__cell.startDay(data-date='2024/2/12')
-                span.handle
+              td.c-calendar-tbl__cell(data-date='2024/2/12')
                 span.c-calendar-tbl__daily 12/月
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/13')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/2/13')
                 span.c-calendar-tbl__daily 13/火
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/14')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/2/14')
                 span.c-calendar-tbl__daily 14/水
-              td.c-calendar-tbl__cell.atDay(data-date='2024/2/15')
-                .content
-                  .type_wrapper
-                    span.type 試
-                    soan.type 試
-                  span.date 2024/10/25
-                  span.pattern A
-                  span.caption 山田
-                  span.caption 高嶺野
+              td.c-calendar-tbl__cell(data-date='2024/2/15')
                 span.c-calendar-tbl__daily 15/木
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/16')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/2/16')
                 span.c-calendar-tbl__daily 16/金
-              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/2/17')
-                span.target
+              td.c-calendar-tbl__cell.--sat(data-date='2024/2/17')
                 span.c-calendar-tbl__daily 17/土
-              td.c-calendar-tbl__cell.--sun.endDay(data-date='2024/2/18')
-                span.handle
+              td.c-calendar-tbl__cell.--sun(data-date='2024/2/18')
                 span.c-calendar-tbl__daily 18/日
-              td.c-calendar-tbl__cell(data-date='2024/2/19')
+              td.c-calendar-tbl__cell.startDay(data-date='2024/2/19')
+                span.handle.start-handle
                 span.c-calendar-tbl__daily 19/月
-              td.c-calendar-tbl__cell(data-date='2024/2/20')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/20')
+                span.target
                 span.c-calendar-tbl__daily 20/火
               td.c-calendar-tbl__cell.empty
                 span.c-calendar-tbl__daily
             tr.c-calendar-tbl__row
-              td.c-calendar-tbl__cell(data-date='2024/2/21')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/21')
+                span.target
                 span.c-calendar-tbl__daily 21/水
-              td.c-calendar-tbl__cell(data-date='2024/2/22')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/22')
+                span.target
                 span.c-calendar-tbl__daily 22/木
-              td.c-calendar-tbl__cell(data-date='2024/2/23')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/23')
+                span.target
                 span.c-calendar-tbl__daily 23/金
-              td.c-calendar-tbl__cell.--sat(data-date='2024/2/24')
+              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/2/24')
+                span.target
                 span.c-calendar-tbl__daily 24/土
-              td.c-calendar-tbl__cell.--sun(data-date='2024/2/25')
+              td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/2/25')
+                span.target
                 span.c-calendar-tbl__daily 25/日
-              td.c-calendar-tbl__cell(data-date='2024/2/26')
+              td.c-calendar-tbl__cell.atDay(data-date='2024/2/26')
+                .content
+                  .type_wrapper
+                    span.type(style="background: #6CD098; border: none; color: #FFF;") 仮
+                    soan.type 試
+                  span.date 2024/10/25
+                  span.pattern C
+                  span.caption 山田
+                  span.caption 高嶺野
                 span.c-calendar-tbl__daily 26/月
-              td.c-calendar-tbl__cell(data-date='2024/2/27')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/27')
+                span.target
                 span.c-calendar-tbl__daily 27/火
-              td.c-calendar-tbl__cell(data-date='2024/2/28')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/28')
+                span.target
                 span.c-calendar-tbl__daily 28/水
-              td.c-calendar-tbl__cell(data-date='2024/2/29')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/2/29')
+                span.target
                 span.c-calendar-tbl__daily 29/木
               td.c-calendar-tbl__cell.empty
                 span.c-calendar-tbl__daily
@@ -231,22 +261,18 @@ mixin Calendar()
         table.c-calendar-tbl
           tbody
             tr.c-calendar-tbl__row
-              td.c-calendar-tbl__cell.startDay.--tier(data-date='2024/3/1')
-                span.handle
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/3/1')
+                span.target
                 span.c-calendar-tbl__daily 1/金
-              td.c-calendar-tbl__cell.--sat.atDay.--tier(data-date='2024/3/2')
-                .content
-                  .type_wrapper
-                    span.type 試
+              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/3/2')
+                span.target
                 span.c-calendar-tbl__daily 2/土
-              td.c-calendar-tbl__cell.--sun.targetDay.--tier(data-date='2024/3/3')
-                span.target
+              td.c-calendar-tbl__cell.--sun.endDay(data-date='2024/3/3')
+                span.handle.end-handle
                 span.c-calendar-tbl__daily 3/日
-              td.c-calendar-tbl__cell.targetDay.--tier(data-date='2024/3/4')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/3/4')
                 span.c-calendar-tbl__daily 4/月
-              td.c-calendar-tbl__cell.endDay.--tier(data-date='2024/3/5')
-                span.handle
+              td.c-calendar-tbl__cell(data-date='2024/3/5')
                 span.c-calendar-tbl__daily 5/火
               td.c-calendar-tbl__cell(data-date='2024/3/6')
                 span.c-calendar-tbl__daily 6/水
@@ -284,23 +310,38 @@ mixin Calendar()
               td.c-calendar-tbl__cell.empty
                 span.c-calendar-tbl__daily
             tr.c-calendar-tbl__row
-              td.c-calendar-tbl__cell(data-date='2024/3/21')
+              td.c-calendar-tbl__cell.startDay(data-date='2024/3/21')
+                span.handle.start-handle
                 span.c-calendar-tbl__daily 21/木
-              td.c-calendar-tbl__cell(data-date='2024/3/22')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/3/22')
+                span.target
                 span.c-calendar-tbl__daily 22/金
-              td.c-calendar-tbl__cell.--sat(data-date='2024/3/23')
+              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/3/23')
+                span.target
                 span.c-calendar-tbl__daily 23/土
-              td.c-calendar-tbl__cell.--sun(data-date='2024/3/24')
+              td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/3/24')
+                span.target
                 span.c-calendar-tbl__daily 24/日
-              td.c-calendar-tbl__cell(data-date='2024/3/25')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/3/25')
+                span.target
                 span.c-calendar-tbl__daily 25/月
-              td.c-calendar-tbl__cell(data-date='2024/3/26')
+              td.c-calendar-tbl__cell.atDay(data-date='2024/3/26')
+                .content
+                  .type_wrapper
+                    span.type 試
+                  span.date 2024/10/25
+                  span.pattern L
+                  span.caption 新郎
+                  span.caption 新婦
                 span.c-calendar-tbl__daily 26/火
-              td.c-calendar-tbl__cell(data-date='2024/3/27')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/3/27')
+                span.target
                 span.c-calendar-tbl__daily 27/水
-              td.c-calendar-tbl__cell(data-date='2024/3/28')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/3/28')
+                span.target
                 span.c-calendar-tbl__daily 28/木
-              td.c-calendar-tbl__cell(data-date='2024/3/29')
+              td.c-calendar-tbl__cell.endDay(data-date='2024/3/29')
+                span.handle.end-handle
                 span.c-calendar-tbl__daily 29/金
               td.c-calendar-tbl__cell.--sat(data-date='2024/3/30')
                 span.c-calendar-tbl__daily 30/土
@@ -350,29 +391,45 @@ mixin Calendar()
                 span.c-calendar-tbl__daily 17/水
               td.c-calendar-tbl__cell(data-date='2024/4/18')
                 span.c-calendar-tbl__daily 18/木
-              td.c-calendar-tbl__cell(data-date='2024/4/19')
+              td.c-calendar-tbl__cell.startDay(data-date='2024/4/19')
+                span.handle.start-handle
                 span.c-calendar-tbl__daily 19/金
-              td.c-calendar-tbl__cell.--sat(data-date='2024/4/20')
+              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/4/20')
+                span.target
                 span.c-calendar-tbl__daily 20/土
               td.c-calendar-tbl__cell.empty
                 span.c-calendar-tbl__daily
             tr.c-calendar-tbl__row
-              td.c-calendar-tbl__cell.--sun(data-date='2024/4/21')
+              td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/4/21')
+                span.target
                 span.c-calendar-tbl__daily 21/日
               td.c-calendar-tbl__cell(data-date='2024/4/22')
+                span.target
                 span.c-calendar-tbl__daily 22/月
-              td.c-calendar-tbl__cell(data-date='2024/4/23')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/4/23')
+                span.target
                 span.c-calendar-tbl__daily 23/火
-              td.c-calendar-tbl__cell(data-date='2024/4/24')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/4/24')
+                span.target
                 span.c-calendar-tbl__daily 24/水
-              td.c-calendar-tbl__cell(data-date='2024/4/25')
+              td.c-calendar-tbl__cell.targetDay(data-date='2024/4/25')
+                span.target
                 span.c-calendar-tbl__daily 25/木
-              td.c-calendar-tbl__cell(data-date='2024/4/26')
+              td.c-calendar-tbl__cell.atDay(data-date='2024/4/26')
+                .content
+                  .type_wrapper
+                    span.type(style="background: #6CD098; border: none; color: #FFF;") 仮
+                    soan.type 本
+                  span.date 2024/10/25
+                  span.pattern L
+                  span.caption 山田
+                  span.caption 高嶺野
                 span.c-calendar-tbl__daily 26/金
-              td.c-calendar-tbl__cell.--sat(data-date='2024/4/27')
+              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/4/27')
+                span.target
                 span.c-calendar-tbl__daily 27/土
-              td.c-calendar-tbl__cell.--sun.startDay(data-date='2024/4/28')
-                span.handle
+              td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/4/28')
+                span.target
                 span.c-calendar-tbl__daily 28/日
               td.c-calendar-tbl__cell.targetDay(data-date='2024/4/29')
                 span.target
@@ -393,41 +450,31 @@ mixin Calendar()
               td.c-calendar-tbl__cell.targetDay(data-date='2024/5/2')
                 span.target
                 span.c-calendar-tbl__daily 2/木
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/5/3')
-                span.target
+              td.c-calendar-tbl__cell.endDay(data-date='2024/5/3')
+                span.handle.end-handle
                 span.c-calendar-tbl__daily 3/金
-              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/5/4')
-                span.target
+              td.c-calendar-tbl__cell.--sat(data-date='2024/5/4')
                 span.c-calendar-tbl__daily 4/土
-              td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/5/5')
-                span.target
+              td.c-calendar-tbl__cell.--sun(data-date='2024/5/5')
                 span.c-calendar-tbl__daily 5/日
-              td.c-calendar-tbl__cell.atDay(data-date='2024/5/6')
-                .content
+              td.c-calendar-tbl__cell(data-date='2024/5/6')
                 span.c-calendar-tbl__daily 6/月
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/5/7')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/5/7')
                 span.c-calendar-tbl__daily 7/火
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/5/8')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/5/8')
                 span.c-calendar-tbl__daily 8/水
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/5/9')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/5/9')
                 span.c-calendar-tbl__daily 9/木
-              td.c-calendar-tbl__cell.targetDay(data-date='2024/5/10')
-                span.target
+              td.c-calendar-tbl__cell(data-date='2024/5/10')
                 span.c-calendar-tbl__daily 10/金
               td.c-calendar-tbl__cell.empty
                 span.c-calendar-tbl__daily
             tr.c-calendar-tbl__row
-              td.c-calendar-tbl__cell.--sat.targetDay(data-date='2024/5/11')
-                span.target
+              td.c-calendar-tbl__cell.--sat(data-date='2024/5/11')
                 span.c-calendar-tbl__daily 11/土
-              td.c-calendar-tbl__cell.--sun.targetDay(data-date='2024/5/12')
-                span.target
+              td.c-calendar-tbl__cell.--sun(data-date='2024/5/12')
                 span.c-calendar-tbl__daily 12/日
-              td.c-calendar-tbl__cell.endDay(data-date='2024/5/13')
-                span.handle
+              td.c-calendar-tbl__cell(data-date='2024/5/13')
                 span.c-calendar-tbl__daily 13/月
               td.c-calendar-tbl__cell(data-date='2024/5/14')
                 span.c-calendar-tbl__daily 14/火
